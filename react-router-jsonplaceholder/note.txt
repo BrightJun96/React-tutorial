@@ -1,0 +1,38 @@
+> 1. react-router 프로젝트 만들어보기
+ api를 이용해 router를 만들어보자.
+
+api reference : jsonplaceholder
+
+description : jsonplaceholder api에 4개의 카테고리를 골라 routing해준다.
+각 카테고리의 아이템을 전부 나열해서 보여주는 것이 아닌 각 아이템을 하나씩 보여줄 수 있도록 해준다.
+각 아이템은 링크 태그를 통해 접근할 수 있도록 params를 이용하여 라우팅해준다.
+즉, 각 아이템도 param을 통해 링크를 가진다.
+
+
+1. Home에 있는 내용을 부분적으로 안 보이게 하기 위해선 어떻게 해야하나?
+2. 각 카테고리에 있는 내용을 렌더링해준다.
+
+
+
+
+문제점 : Posts에서 세부 아이템 경로에서 새로고침을 했을 때  data가 null이 됨.
+
+
+
+
+
+> 2.    블로그 정리
+- react router가 뭐고 왜 사용하는지?
+
+- 컴포넌트의 종류 및 역할 
+
+
+
+
+BrowserRouter
+Routes
+Route
+Outlet
+Link
+NavLink
+useParams
