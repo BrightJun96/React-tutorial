@@ -31,3 +31,13 @@ fakeauth를 만들어 auth state를 최상단 컴포넌트에 두어 여러 컴�
 react 공식 문서에 있는 tutorial을 연습하며 기존의 클래스형 컴포넌트를 함수형 컴포넌트로 imgration하였다.
 
 주로 사용된 훅 => useState
+
+## vanilla-redux
+
+react없이 vanilla javascript에 redux를 적용한 tutorial이다.
+redux의 기본적인 메커니즘과 사용법을 알 수 있다.
+
+tech : parcel , redux
+
+- npm i parcel
+- npm i redux
