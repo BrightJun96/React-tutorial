@@ -6,7 +6,7 @@ react와 함께 redux를 사용하는 기본적인 사용방법을 구현한 튜
 
 리덕스의 주된 메커니즘은 dispatch를 실행하면 state와 action을 가진 reducer가 실행된다.
 
-<br><br>
+<br>
 
 ## npm install
 
@@ -40,8 +40,7 @@ react와 함께 redux를 사용하는 기본적인 사용방법을 구현한 튜
 리덕스 스토어에 액션을 디스패치하기도 한다.
 
 - container component와 관련된 컴포넌트는 `src/containers`에 저장
-
-<br><br>
+  <br><br>
 
 ## File structure(Ducks pattern)
 
@@ -60,13 +59,11 @@ react와 함께 redux를 사용하는 기본적인 사용방법을 구현한 튜
 - reducer
 - combine reducer(modules/index.js)
 
-<br><br>
+<br>
 
 ## API
 
-<br>
-
-### Combine reducer
+### **Combine reducer**
 
 `import { combineReducer } from "redux";`
 
@@ -82,7 +79,7 @@ const rootReducer = combineReducer({ counter, todos });
 
 <br>
 
-### createStore
+### **createStore**
 
 `import { createStore } from "redux";`
 
@@ -97,7 +94,7 @@ store를 생성하여 인자에 reducer를 할당함으로써 redux state,dispat
 
 <br>
 
-### Provider
+### **Provider**
 
 `import { Provider } from "react-redux";`
 
@@ -124,7 +121,7 @@ Provider prop으로 store를 전달해준다.
 
 <br>
 
-### connect
+### **connect**
 
 > Connect redux to Component
 
@@ -146,7 +143,9 @@ const makeContainer = connect(mapStateToProps, mapDispatchToProps)
 makeContainer(target Component)
 ```
 
-> **mapStateToProps**
+<br>
+
+**mapStateToProps**
 
 ```js
 const mapStateToProps = (state) => {
@@ -154,21 +153,23 @@ const mapStateToProps = (state) => {
 };
 ```
 
-> 리덕스 스토어 안의 상태를 컴포넌트의 props로 넘겨주기 위해 설정하는 함수
+- 리덕스 스토어 안의 상태를 컴포넌트의 props로 넘겨주기 위해 설정하는 함수
+  <br><br>
 
-> **mapDispatchToProps**
+**mapDispatchToProps**
 
 ```js
 const mapDispatchToProps = (dispatch) => {};
 ```
 
-> 액션 생성 함수를 컴포넌트의 props로 넘겨주기 위해 사용하는 함수
+- 액션 생성 함수를 컴포넌트의 props로 넘겨주기 위해 사용하는 함수
 
 mapStateToProps,mapDispatchToProps에서 반환하는 객체 내부의 값들은 컴포넌트의 props로 전달된다.
 
 mapStateToProps는 state를 파라미터로 받아 오며, 이 값은 현재 스토어가 지니고 있는 상태를 가리킨다.
 
 mapDispatchToProps의 경우 store의 내장 함수 dispatch를 파라미터로 받아온다.
+<br><br>
 
 **dispatch를 전달하는 세 가지 방법**
 
@@ -201,6 +202,9 @@ import { increase, decrease } from "../modules/counter";
 const mapDispatchToProps = { increase, decrease };
 ```
 
+> Note  
+> connect 함수를 사용하여 컨테이너 컴포넌트를 만들었을 경우, 해당 컨테이너 컴포넌트의 부모 컴포넌트가 리렌더링될 때 해당 컨테이너 컴포넌트의 props가 바뀌지 않았다면 리렌더링이 자동으로 방지되어 성능이 최적화된다.
+
 <br><br>
 
 ## Note
@@ -220,6 +224,214 @@ const mapDispatchToProps = { increase, decrease };
 
 <br><br>
 
+## Library
+
+### **redux-actions**
+
+`npm i redux-actions`
+
+redux-actions를 사용하면 액션 생성함수를 더 짧은 코드로 작성할 수 있다.
+리듀서를 작성할 때도 switch/case 문이 아닌 handleActions라는 함수를 사용하여 각 액션마다 업데이트 함수를 설정하는 형식으로 작성해 줄 수 있다.
+
+**`Before`**
+
+```js
+import { createAction } from "redux-actions";
+
+// 액션 타입
+
+const INCREASE = "counter/INCREASE";
+const DECREASE = "counter/DECREASE";
+
+// 액션 생성 함수
+
+export const increase = () => {
+  return { type: "INCRESE" };
+};
+export const decrease = () => {
+  return { type: "DECRESE" };
+};
+```
+
+**`After`**
+
+```js
+import { createAction } from "redux-actions";
+
+// 액션 타입
+
+const INCREASE = "counter/INCREASE";
+const DECREASE = "counter/DECREASE";
+
+export const increase = createAction(INCREASE);
+export const decrease = createAction(DECREASE);
+```
+
+createAction이라는 함수를 불러와 액션타입을 인자로 넣어주면 된다.
+
+**리듀서** 또한 간단하고 가독성 높게 작성할 수 있다.
+
+`import {handleActions} from "redux-actions"`
+
+**`Before`**
+
+```js
+const initialState = {
+  number: 0,
+};
+
+function counter(state = initialState, action) {
+  switch (action.type) {
+    case INCREASE:
+      return { number: state.number + 1 };
+
+    case DECREASE: {
+      return { number: state.number - 1 };
+    }
+
+    default:
+      return state;
+  }
+}
+```
+
+**`After`**
+
+```js
+const initialState = {
+  number: 0,
+};
+
+const counter = handleActions(
+  {
+    [INCREASE]: (state, action) => ({ number: state.number + 1 }),
+    [DECREASE]: (state, action) => ({ number: state.number - 1 }),
+  },
+  initialState
+);
+```
+
+<br>
+
+### **immer**
+
+객체의 구조가 복잡해지거나 객체로 이루어진 배열을 다룰 경우, immer를 사용하면 훨씬 편리하게 상태를 관리할 수 있다.
+
+**`Before`**
+
+```js
+// reducer
+
+const todos = handleActions(
+  {
+    [CHANGE_INPUT]: (state, { payload: input }) => ({ ...state, input }),
+    [INSERT]: (state, { payload: todo }) => ({
+      ...state,
+      todos: state.todos.concat(todo),
+    }),
+
+    [TOGGLE]: (state, { payload: id }) => ({
+      ...state,
+      todos: state.todos.map(todo => todo.id===id?{...todo,!todo.done}:todo),
+    }),
+    [REMOVE]: (state, { payload: id }) => ({
+      ...state,
+      todos: state.todos.filter((todo) => todo.id !== id),
+    }),
+  },
+  initialState
+);
+```
+
+**`After`**
+
+```js
+// reducer
+
+const todos = handleActions(
+  {
+    [CHANGE_INPUT]: (state, { payload: input }) =>
+      produce(state, (draft) => {
+        draft.input = input;
+      }),
+    [INSERT]: (state, { payload: todo }) =>
+      produce(state, (draft) => {
+        draft.todos.push(todo);
+      }),
+    [TOGGLE]: (state, { payload: id }) =>
+      produce(state, (draft) => {
+        const todo = draft.todos.find((todo) => todo.id === id);
+        todo.done = !todo.done;
+      }),
+
+    [REMOVE]: (state, { payload: id }) =>
+      produce(state, (draft) => {
+        const index = draft.todos.findIndex((todo) => todo.id === id);
+        draft.todos.splice(index, 1);
+      }),
+  },
+  initialState
+);
+```
+
+<br><br>
+
+## redux hook
+
+### **useSelector**
+
+useSelector Hook을 사용하면 connect 함수를 사용하지 않고도 리덕스의 상태를 조회할 수 있다.
+
+**`Before`**
+
+```js
+const mapStateToProps = (state) => ({ number: state.counter.number });
+const mapDispatchToProps = { increase, decrease };
+
+export default connect(mapStateToProps, mapDispatchToProps)(CounterContainer);
+```
+
+**`After`**
+
+```js
+const number = useSelector((state) => state.counter.number);
+```
+
+> Note  
+> useSelector를 사용하여 리덕스 상태를 조회했을 때는 최적화 작업(부모 컴포넌트가 리렌더링됬을 때, 컴포넌트 props가 바뀌지 않으면 리렌더링되지 않는 것)이 자동으로 이루어지지 않아 React.memo로 최적화해줘야한다.
+
+<br>
+
+### **useDispatch**
+
+useDispatch는 컴포넌트 내부에서 스토어의 내장 함수 dispatch를 사용할 수 있게 해준다.
+
+**`Before`**
+
+```js
+const mapStateToProps = (state) => ({ number: state.counter.number });
+const mapDispatchToProps = { increase, decrease };
+
+export default connect(mapStateToProps, mapDispatchToProps)(CounterContainer);
+```
+
+**`After`**
+
+```js
+const dispatch = useDispatch();
+return (
+  <div>
+    <Counter
+      number={number}
+      onIncrease={() => dispatch(increase())}
+      onDecrease={() => dispatch(decrease())}
+    />
+  </div>
+);
+```
+
 ## Reference
 
-**리액트를 다루는 기술 17장 리덕스를 사용하여 리액트 애플리케이션 상태 관리하기**
+**리액트를 다루는 기술 17장**
+
+**리덕스를 사용하여 리액트 애플리케이션 상태 관리하기**
