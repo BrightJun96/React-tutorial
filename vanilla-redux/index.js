@@ -56,11 +56,12 @@ function reducer(state = initialState, action) {
 // dispatch는 reducer를 실행시킨다.ㅌ`
 
 const store = createStore(reducer);
-
 // render function
-
+// 밑에 코드들의 변경사항들은 dispatch함으로써 변경이된다.
+// 하지만 store가 render함수를 subscribe하지 않고 있다면 변경사항들이 반영되지않는다.
 const render = () => {
-  const state = store.getState(); // 현재 상태 불러오기
+  const state = store.getState();
+  // 현재 상태 불러오기
   console.log("render");
   if (state.toggle) {
     divToggle.classList.add("active");
@@ -71,7 +72,7 @@ const render = () => {
   counter.innerText = state.counter; // innerText? 태그들의 속성을 인식함.
 };
 
-store.subscribe(render); // 스토어의 상태가 바뀔 때마다 render함수 호출
+store.subscribe(render); // subscribe해줌으로써 dispatch될때마다 render 함수를 호출하게 해준다.
 
 // dispatch
 divToggle.onclick = () => {

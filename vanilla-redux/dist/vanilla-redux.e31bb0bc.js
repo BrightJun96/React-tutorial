@@ -955,6 +955,8 @@ function reducer() {
 
 
 var store = (0, _redux.createStore)(reducer); // render function
+// 밑에 코드들의 변경사항들은 dispatch함으로써 변경이된다.
+// 하지만 store가 render함수를 subscribe하지 않고 있다면 변경사항들이 반영되지않는다.
 
 var render = function render() {
   var state = store.getState(); // 현재 상태 불러오기
@@ -970,7 +972,7 @@ var render = function render() {
   counter.innerText = state.counter; // innerText? 태그들의 속성을 인식함.
 };
 
-store.subscribe(render); // 스토어의 상태가 바뀔 때마다 render함수 호출
+store.subscribe(render); // subscribe해줌으로써 dispatch될때마다 render 함수를 호출하게 해준다.
 // dispatch
 
 divToggle.onclick = function () {
@@ -1012,7 +1014,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65282" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62154" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

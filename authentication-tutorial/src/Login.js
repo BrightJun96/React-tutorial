@@ -8,7 +8,7 @@ const Login = ({ auth }) => {
   console.log(state);
   const handleLogin = () => {
     login().then(() => {
-      navigate(state?.path || "/dashboard");
+      navigate(state?.path || "/dashboard", { replace: "true" });
     });
   };
   return (

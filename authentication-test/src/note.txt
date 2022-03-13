@@ -1,0 +1,85 @@
+1. 기본 경로에는 LayOut 컴포넌트를 할당한다. (다른 페이지 들어가도 보이도록 Nested Routes 해준다.) > clear
+
+2. Videos와 Configuration 컴포넌트는 protected routes로 접근하려하면 Login 컴포넌트로 이동하게 된다. > clear
+(Login이 된 상태라면 접근가능)
+
+3. 로그인된 이후에는 원래 접속하려던 protected route로 이동하게 해준다. > clear
+
+4. 만약 protected route로 접근하는 것이 아니라 바로 로그인 페이지로 가 로그인을 한다면 기본 경로로 navigate해준다. > clear
+
+5. About은 public Route로 로그인을 하지 않아도 접근가능하다. (protected route와 비교하기 위해 예시를 하나 두었음.) > clear
+
+6. 로그인은 버튼만 누르면 로그인이 되도록 구현 > clear
+    (아이디나 비밀번호를 입력하여 구현하게 하고 싶다면 나중에 추가적으로..)
+
+7. 로그인이 되면 LayOut 컴포넌트에 Login 상태인 것을 알려주는 메시지와 로그아웃 버튼을 함께 표시 > clear
+
+8. 로그인상태에서  로그인 페이지로 들어가려하면 기존 페이지에 머무르고 있게 하기 > clear
+
+다음 페이지에 현재 페이지 경로 전달하는 방법은 무엇이 있을까?
+
+
+9. 로그아웃 버튼을 누르면 로그인 페이지로 가게 하기   clear
+
+10. 새로고침을 해도 로그인 상태되게 하기
+=> localstorage 이용?
+
+
+
+
+일단 여기까지
+
+------
+
+add1. 데이터를 전역에서 공유할 수 있게 해야하나 말아야하나 판단,
+=> context api를 사용해서 데이터를 컴포넌트에 공유하는것이 좋은지
+최상단 컴포넌트에서 데이터를 props drilling하는 것이 나은지 판단
+
+=> context api를 사용해서 데이터를 사용해보기
+
+
+add2. NavLink 추가 > 
+모든 링크마다 NavLink를 간단하게 사용하기 위해 NavLink를 컴스텀한 컴포넌트를 만들었다.
+
+clear
+
+add3. 
+로그아웃 상태에서 protected route에 접근하려하면 바로 login component가 렌더되지 않고 
+잠깐 protected route를 렌더했다가 login component를 렌더함.
+
+바로 login component를 렌더하기 위해선 어떻게 해야할까?
+
+protected route를 거쳐야지 로그인 페이지로 가기 때문에 바로 login componenet를 렌더하기는 어려울 듯
+
+
+add4. 새로고침해도 로그인 상태유지하고 있게 하기
+=> localstorage 이용?
+로그인 상태를 localstorage에 담는다.
+
+------
+
+Error 1 :
+만약 기본경로(LayOut)나 About에서 로그인 페이지로 가서 바로 로그인을 하면 이전 location state 값이 없기 때문에
+로그인을 한뒤에 이동할 경로가 null이게 된다.
+
+=> solve : 삼항연산식으로 해결
+
+Error 2: 
+로그인인 상태에서 로그인 페이지에 가려 하면 이전 location.state값을 찾지 못해 에러가 난다.
+
+Link태그 state를 이용하여 이전 경로를 location.state로 전달하여 로그인이 된 상태라면 로그인페이지로 가지 않고 기존에 있던 경로로 가게 해줌.
+
+
+----------------
+Link로 전달한 state는 location.state로 전달이 된다.
+
+
+
+
+-------
+
+Home과 About에서도 location를 다 전달해줘야함.
+
+이전 location을 불러올 수 있는 방법?
+
+login 페이지에서 이전에 들어갔던 페이지의 경로를 불러올 수 있는 방법은 무엇일까?

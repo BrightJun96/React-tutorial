@@ -1,0 +1,54 @@
+> fetch대신 axios를 쓰는 이유?
+- 비교적 간단한 문법
+
+- 넓은 브라우저 호환성
+
+- timeout option을 사용할 수 있다.
+
+- data를 json으로 자동 변환
+
+fetch에서 복잡하게 구현할 기능을 간편하게 구현할 수 있게 해주고
+fetch에 없는 좋은 기능을 사용할 수 있다.
+
+
+
+
+About fetch
+
+> fetch 요청을 하면 response 객체(promise)로 응답을 준다.
+ * Response 객체란 요청에 대한 응답에 대한 정보를 담은 객체이다. 
+
+> 응답받은 데이터는 클라이언트측에서 사용할 수 있도록 객체화해줘야함.
+json() : 데이터를 사용할 수 있도록 parse해줌. (서버에서 json데이터는 문자열화되있기 때문)
+
+
+
+
+
+
+
+fetch
+- promise기반 http통신
+- 클라이언트와 서버가  http 통신할 수 있는 Web Api 
+- 브라우저 환경에서 실행되지만 노드 환경에서는 실행되지 않는다.
+(노드 환경에서 실행하기 위해서는 추가적인 모듈을 설치해야함. 
+npm install node-fetch   //  import fetch from "node-fetch")
+
+
+
+axios
+- promise기반 http통신
+- 브라우저와 노드 둘 다 환경에서 다 실행된다.
+- 브라우저 환경에서는 XMLHttpRequests를 기반으로 작동한다.
+- 노드환경에서는 http 모듈을 기반으로 작동한다.
+- fetch보다 브라우저 호환성이 좋다.
+- 자동으로 json 데이터로 변경해준다.
+
+
+
+
+
+> http header
+
+> http body
+

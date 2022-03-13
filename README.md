@@ -12,6 +12,8 @@ Parent라는 부모컴포넌트안에 여러개의 Child라는 자식컴포넌�
 
 이러한 방법으로 변경되지 않는 컴포넌트를 리렌더링해주지않음으로써 성능 향상을 할 수 있다
 
+<hr>
+
 ## authentication-tutorial
 
 react router을 이용하여 Protected Route를 구현한 튜토리얼이다.
@@ -26,18 +28,31 @@ fakeauth를 만들어 auth state를 최상단 컴포넌트에 두어 여러 컴�
 > Navigate
 > useLocation
 
+<hr>
+
 ## react-tictactoe-tutorial
 
 react 공식 문서에 있는 tutorial을 연습하며 기존의 클래스형 컴포넌트를 함수형 컴포넌트로 imgration하였다.
 
 주로 사용된 훅 => useState
 
-## vanilla-redux
+<hr>
 
-react없이 vanilla javascript에 redux를 적용한 tutorial이다.
+## [vanilla-redux](https://github.com/BrightJun96/React-tutorial/tree/master/vanilla-redux)
+
+react 없이 vanilla javascript에 redux를 적용한 tutorial이다.
 redux의 기본적인 메커니즘과 사용법을 알 수 있다.
 
 tech : parcel , redux
 
+순서
+
+- npm init -y
 - npm i parcel
 - npm i redux
+
+서버 실행하기
+
+- parcel index.html
+
+본 튜토리얼은 책 리액트를 다루는 기술을 참조하였다.
