@@ -1,5 +1,7 @@
+import axios from "axios";
+
 export const getPost = (id) =>
-  fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+  axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`);
 
 export const getUsers = (id) =>
-  fetch("https://jsonplaceholder.typicode.com/users");
+  axios.get(`https://jsonplaceholder.typicode.com/users`);
